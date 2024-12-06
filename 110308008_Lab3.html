@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>110308008_Lab3_Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        div {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+    </style>
+</head>
+
+<body>
+    <h1>110308008_Lab3_Number Guessing Game</h1>
+    <div id="result"></div>
+    <script>
+        const correctNumber = Math.floor(Math.random() * 98) + 2; 
+        let minRange = 1;
+        let maxRange = 100;
+        let attemptsLeft = 7;
+
+        while (attemptsLeft > 0) {
+            let guess = window.prompt(`Guess the number! Range: ${minRange}-${maxRange}\nAttempts left: ${attemptsLeft}`);
+
+            if (!guess || isNaN(guess)) {
+                alert("Invalid input. Please enter a number within the specified range.");
+                continue;
+            }
+            
+            guess = parseInt(guess);
+            
+            if (guess <= minRange || guess >= maxRange) {
+                alert(`Invalid guess. Please choose a number between ${minRange + 1} and ${maxRange - 1}.`);
+                continue;
+            }
+
+            attemptsLeft--;
+
+            if (guess === correctNumber) {
+                alert("Congratulations! You guessed the correct number!");
+                document.getElementById("result").innerHTML = '<img src="correct.jpg" alt="Correct">';
+                break;
+            } else if (guess > correctNumber) {
+                maxRange = guess;
+                alert("The number is lower.");
+            } else {
+                minRange = guess;
+                alert("The number is higher.");
+            }
+
+            if (attemptsLeft === 0) {
+                alert(`Game Over! The correct number was ${correctNumber}.`);
+                document.getElementById("result").innerHTML = '<img src="wrong.jpg" alt="Wrong">';
+            }
+        }
+    </script>
+</body>
+</html>
